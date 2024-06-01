@@ -1,0 +1,6 @@
+:host ::ng-deep p-progressspinner{
+  .p-progress-spinner-circle {
+    animation: p-progress-spinner-dash 1.5s ease-in-out infinite;
+    stroke: #052c65;
+  }
+}
