@@ -1,7 +1,5 @@
 version: '3'
 
-name: inventory-management-angular-java
-
 services:
   backend:
     image: gabrielmarreiros/inventory-management-angular-java-backend
