@@ -82,11 +82,22 @@
         </div>
       </div>
 
-      <div class="row mb-5">
+      <div class="row">
         <div class="col-12 d-flex flex-column gap-2">
           <label htmlFor="image" class="fw-bold">Imagem</label>
-          <p-fileUpload id="image" mode="basic" chooseLabel="Escolher" accept="image/*" [maxFileSize]="1000000"
-            (onSelect)="imageFileSelectHandler($event)" aria-describedby="image-help"></p-fileUpload>
+
+          <div class="d-flex gap-2" *ngIf="!isDetailsForm">
+            <input type="file" #teste accept="image/*" class="d-none" (change)="handleImageFileSelect($event)">
+            <p-button label="Escolher" (onClick)="teste.click()"></p-button>
+            <p-button *ngIf="!!productForm.get('image')?.value" (click)="handleCancelImageSelect()" label="Remover Imagem"></p-button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row  mb-5 mt-3">
+        <div class="col-12 col-lg-6" >
+          <img [src]="productForm.get('image')?.value" alt="" class="img-fluid border rounded">
           <small id="image-help">Imagem do produto.</small>
         </div>
       </div>
