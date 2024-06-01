@@ -33,17 +33,17 @@ services:
     networks:
       - inventory-management-angular-java-network
 
-    mysql:
-      image: mysql
-      container_name: mysql
-      restart: always
-      environment:
-        MYSQL_ROOT_PASSWORD: test
-      ports:
-        -"3306:3306"
-      networks:
-        - inventory-management-angular-java-network
-        - mysql-network
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      -"3306:3306"
+    networks:
+      - inventory-management-angular-java-network
+      - mysql-network
 
 networks:
   inventory-management-angular-java-network:
