@@ -1,0 +1,19 @@
+:host ::ng-deep p-splitButton {
+
+  div.p-tieredmenu{
+    left: -180%!important;
+  }
+
+  button.p-splitbutton-defaultbutton{
+    box-shadow: none;
+    margin-right: 0.2rem;
+    padding: 0;
+    cursor: auto;
+    background: transparent;
+  }
+
+  button.p-splitbutton-menubutton{
+    width: 1.5rem;
+  }
+
+}

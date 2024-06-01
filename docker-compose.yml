@@ -1,0 +1,57 @@
+version: '3'
+
+name: inventory-management-angular-java
+
+services:
+  backend:
+    image: gabrielmarreiros/inventory-management-angular-java-backend
+    container_name: inventory-management-angular-java-backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+    networks:
+      - mysql-network
+      - inventory-management-angular-java-network
+
+  frontend:
+    image: gabrielmarreiros/inventory-management-angular-java-frontend
+    container_name: inventory-management-angular-java-frontend
+    environment:
+      - API_URL=${API_URL}
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+      args:
+        - API_URL=$API_URL
+    depends_on:
+      - backend
+    networks:
+      - inventory-management-angular-java-network
+
+    mysql:
+      image: mysql
+      container_name: mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: test
+      ports:
+        -"3306:3306"
+      networks:
+        - inventory-management-angular-java-network
+        - mysql-network
+
+networks:
+  inventory-management-angular-java-network:
+    name: inventory-management-angular-java-network
+    driver: bridge
+
+  mysql-network:
+    name: mysql-network
+    driver: bridge

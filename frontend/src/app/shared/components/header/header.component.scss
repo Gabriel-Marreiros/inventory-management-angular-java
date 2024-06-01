@@ -1,0 +1,41 @@
+@keyframes underline-animation {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.nav-item-underline {
+  display: block;
+  height: 4px;
+  width: 0;
+  border-radius: 20px;
+
+}
+
+.nav-item{
+  width: fit-content;
+}
+
+.nav-item:hover{
+  .nav-item-underline {
+    animation-name: underline-animation;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }
+}
+
+.nav-item.link-active{
+  .nav-item-underline{
+    width: 100%;
+    animation: none;
+  }
+}
+
+:host ::ng-deep p-sidebar .p-sidebar-header{
+  justify-content: space-between;
+}
+

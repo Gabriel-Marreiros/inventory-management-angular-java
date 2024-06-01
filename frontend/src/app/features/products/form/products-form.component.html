@@ -1,0 +1,131 @@
+<section class="container-fluid py-5">
+
+  <div class="container col-11 col-lg-10 col-xxl-8 p-4 p-lg-5 bg-white border shadow rounded">
+
+    <h2 class="mb-5 text-center">{{ isDetailsForm ? "Detalhes do Produto" : "Cadastrar Novo Produto" }}</h2>
+
+    <form [formGroup]="productForm">
+
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="brand" class="fw-bold">Marca</label>
+          <input formControlName="brand" pInputText id="brand" aria-describedby="brand-help" />
+          <div *ngIf="showRequiredError('brand')" class="p-error">O preenchimento da marca do produto é obrigatório!</div>
+          <small id="brand-help">Marca do produto.</small>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="name" class="fw-bold">Nome</label>
+          <input formControlName="name" pInputText id="name" aria-describedby="name-help" />
+          <div *ngIf="showRequiredError('name')" class="p-error">O preenchimento do nome do produto é obrigatório!</div>
+          <small id="name-help">Nome do produto.</small>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="category" class="fw-bold">Categoria</label>
+          <p-dropdown formControlName="category" [options]="categoriesOptions" optionLabel="name" optionValue="id"
+            [filter]="true" filterBy="name" aria-describedby="category-help"></p-dropdown>
+          <div *ngIf="showRequiredError('category')" class="p-error">O preenchimento da categoria do produto é
+            obrigatório!</div>
+          <small id="category-help">Categoria do produto.</small>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="sku" class="fw-bold">SKU</label>
+          <input formControlName="sku" pInputText id="sku" aria-describedby="sku-help" />
+          <div *ngIf="showRequiredError('sku')" class="p-error">O preenchimento do código SKU do produto é obrigatório!
+          </div>
+          <small id="sku-help">SKU do produto.</small>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="price" class="fw-bold">Preço</label>
+          <p-inputNumber formControlName="price" inputId="price" mode="currency" currency="BRL" locale="pt-BR">
+          </p-inputNumber>
+          <div *ngIf="showRequiredError('price')" class="p-error">O preenchimento do preço do produto é obrigatório!
+          </div>
+          <small id="price-help">Preço do produto.</small>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column gap-2">
+          <label htmlFor="quantity" class="fw-bold">Quantidade</label>
+          <p-inputNumber formControlName="quantity" [showButtons]="true" inputId="quantity" [min]="0"
+            aria-describedby="quantity-help"> </p-inputNumber>
+          <div *ngIf="showRequiredError('quantity')" class="p-error">O preenchimento da quantidade do produto é
+            obrigatório!</div>
+          <small id="quantity-help">Quantidade do produto.</small>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12 d-flex flex-column gap-2">
+          <label htmlFor="link" class="fw-bold">Link</label>
+          <input *ngIf="!isDetailsForm" formControlName="link" pInputText id="link" aria-describedby="link-help"/>
+          <!-- Link para o modo de visualização -->
+          <a *ngIf="isDetailsForm" [href]="productForm.get('link')?.value" target="_blank" class="text-primary">{{productForm.get('link')?.value}}</a>
+          <small id="link-help">Link do produto.</small>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12 d-flex flex-column gap-2">
+          <label htmlFor="description" class="fw-bold">Descrição</label>
+          <textarea formControlName="description" id="description" rows="5" cols="30" pInputTextarea
+            aria-describedby="description-help"></textarea>
+          <div *ngIf="showRequiredError('description')" class="p-error">O preenchimento da descrição do produto é
+            obrigatório!</div>
+          <small id="description-help">Descrição do produto.</small>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 d-flex flex-column gap-2">
+          <label htmlFor="image" class="fw-bold">Imagem</label>
+          <p-fileUpload id="image" mode="basic" chooseLabel="Escolher" accept="image/*" [maxFileSize]="1000000"
+            (onSelect)="imageFileSelectHandler($event)" aria-describedby="image-help"></p-fileUpload>
+          <small id="image-help">Imagem do produto.</small>
+        </div>
+      </div>
+
+      <div class="row justify-content-between">
+        <div class="w-auto">
+          <p-button label="Voltar" severity="secondary" (onClick)="location.back()"/>
+        </div>
+
+        <div class="w-auto d-flex gap-3">
+          <p-button *ngIf="!isDetailsForm && !isEditingForm" [disabled]="productForm.invalid" styleClass="bg-teste" label="Cadastrar" (onClick)="openSaveConfirmationModal()"></p-button>
+          <p-button *ngIf="isDetailsForm && !isEditingForm && productIsActive" styleClass="bg-teste" label="Editar" (onClick)="enableEditing()"></p-button>
+          <p-button *ngIf="isEditingForm && productIsActive" styleClass="bg-teste" label="Salvar Modificações" (onClick)="openUpdateConfirmationModal()"></p-button>
+          <p-button *ngIf="isDetailsForm && !isEditingForm && productIsActive && userIsAdmin()" styleClass="bg-teste" label="Inativar Produto" (onClick)="openChangeActiveStatusConfirmModal(false)"></p-button>
+          <p-button *ngIf="isDetailsForm && !isEditingForm && !productIsActive && userIsAdmin()" styleClass="bg-teste" label="Ativar Produto" (onClick)="openChangeActiveStatusConfirmModal(true)"></p-button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <p-confirmDialog
+    key="confirmModal"
+    acceptLabel="Sim"
+    acceptButtonStyleClass="btn btn-success"
+    rejectLabel="Não"
+    rejectButtonStyleClass="btn btn-danger me-3"
+    styleClass="col-md-5">
+  </p-confirmDialog>
+
+  <p-confirmDialog
+    key="genericModal"
+    [closable]="false"
+    acceptLabel="Ok"
+    acceptButtonStyleClass="btn btn-primary"
+    rejectButtonStyleClass="d-none"
+    styleClass="col-md-5">
+  </p-confirmDialog>
+
+  <loading-modal styleClass="col-md-5" [showModal]="showLoadingModal" />
+
+</section>

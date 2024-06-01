@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+li{
+   list-style: none;
+}
+
+.bg-teste {
+  //#052c65
+  background-color: var(--bs-primary-text-emphasis);
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+ul{
+  padding-left: unset;
+}
+
+p-dropdown{
+   div.p-dropdown{
+      width: 100%;
+   }
+
+   ul.p-dropdown-items{
+      padding-left: 0;
+      margin-bottom: 0;
+   }
+}
+
+.p-button{
+   font-size: 1rem;
+   border-radius: 6px;
+}
+
+.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {
+   border-top-left-radius: 0;
+   border-bottom-left-radius: 0;
+   border-bottom-right-radius: 0;
+   padding: 0;
+}
+
+.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
+   border-top-left-radius: 0;
+   border-top-right-radius: 0;
+   border-bottom-left-radius: 0;
+   padding: 0;
+}
+
+.p-calendar-w-btn .p-datepicker-trigger {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+div.p-password, input.p-password-input{
+   width: 100%;
+}
