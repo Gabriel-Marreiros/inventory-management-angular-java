@@ -61,8 +61,29 @@ export class ProductsFormComponent implements OnInit {
     }
   }
 
-  imageFileSelectHandler($event: FileSelectEvent): void {
-    console.log($event.files[0])
+  handleImageFileSelect(event: Event): void {
+    const inputElement = event.currentTarget as HTMLInputElement;
+    const file: File = inputElement.files![0];
+
+    // limpa o input de seleção de arquivos
+    inputElement.value = '';
+
+    // verifica se algum arquivo foi selecionado para dar continuidade
+    if(!file){
+      return;
+    }
+
+    const fileReader: FileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      this.productForm.get("image")?.setValue(fileReader.result);
+    }
+  }
+
+  handleCancelImageSelect(){
+    this.productForm.get("image")?.setValue(null);
   }
 
   getCategoriesOptions(): void {

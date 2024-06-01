@@ -11,6 +11,7 @@ public record ProductUpdateRequestDTO(
         BigDecimal price,
         int quantity,
         String link,
+        String image,
         String description
 ) {
 }

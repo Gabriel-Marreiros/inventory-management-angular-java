@@ -80,6 +80,7 @@ public class ProductService {
         productEntity.setPrice(productUpdate.price());
         productEntity.setQuantity(productUpdate.quantity());
         productEntity.setLink(productUpdate.link());
+        productEntity.setImage(productUpdate.image());
         productEntity.setDescription(productUpdate.description());
 
         productEntity.generateSearchTerm();
