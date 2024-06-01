@@ -20,11 +20,13 @@ public class Product {
     private String brand;
     @Column(nullable = false, unique = true)
     private String sku;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)
     private int quantity;
+    @Column(columnDefinition = "TEXT")
     private String image;
     private String link;
     @ManyToOne
