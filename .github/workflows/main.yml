@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        docker-compose build
+        docker-compose build --build-arg API_URL="https://www.gabrielmarreiros.com.br/inventory-management/api" --no-cache
         docker push gabrielmarreiros/inventory-management-angular-java-backend:latest
         docker push gabrielmarreiros/inventory-management-angular-java-frontend:latest
 
