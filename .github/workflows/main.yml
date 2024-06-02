@@ -33,6 +33,6 @@ jobs:
         script: |
           cd /root/docker_composes/inventory-management-angular-java
           docker-compose rm -s -f
-          docker rmi inventory-management-angular-java-backend
-          docker rmi inventory-management-angular-java-frontend
+          docker rmi gabrielmarreiros/inventory-management-angular-java-backend
+          docker rmi gabrielmarreiros/inventory-management-angular-java-frontend
           docker-compose up -d
