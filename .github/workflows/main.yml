@@ -20,7 +20,9 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        docker-compose build;docker push gabrielmarreiros/inventory-management-angular-java-backend:latest;docker push gabrielmarreiros/inventory-management-angular-java-frontend:latest
+        docker-compose build
+        docker push gabrielmarreiros/inventory-management-angular-java-backend:latest
+        docker push gabrielmarreiros/inventory-management-angular-java-frontend:latest
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
@@ -29,4 +31,8 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.VPS_PASSWORD }}
         script: |
-          cd /root/docker_composes/inventory-management-angular-java;docker-compose down --rmi all --remove-orphans;docker-compose up -d
+          cd /root/docker_composes/inventory-management-angular-java
+          docker-compose rm -s -f
+          docker rmi inventory-management-angular-java-backend
+          docker rmi inventory-management-angular-java-frontend
+          docker-compose up -d
