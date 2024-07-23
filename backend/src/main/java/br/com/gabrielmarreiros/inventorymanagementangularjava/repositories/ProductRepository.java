@@ -78,6 +78,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             YEAR(p.createdAt) = :year
         GROUP BY
             months.name
+        ORDER BY
+            months.num ASC
     """)
     List<ProductsNumberRegisteredMonthReportDTO> getProductsNumberRegisteredMonthReport(@Param("year") String year);
 
